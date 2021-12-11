@@ -1,25 +1,43 @@
 package main.java.shopping;
 import java.io.File;
+import java.io.IOException;
 import java.util.Scanner;
 
     public class Main
     {
         public static void main(String[] args) {
 
-            if(null != args && args.length > 0) {// create directory args[0]
+           String defaultPath = "db";
+           String path = "";
+
+           if (args != null && args.length > 0) {       // ??
+               path = args[0];
+               File file = new File(args[0]);
+
+               if (!file.exists()) {        // if file don't exist, create new file directory name
+                   file.mkdir();
+               }
             }
-            else {
-                String dir = "db";
-                File file = new File(dir);         
-                       //create directory db
-            }
+               else {
+                   path = defaultPath;
+                   File file = new File(path);      //set file path "db"
+
+                   if (!file.exists()){
+                       file.mkdirs();
+                   }
+               }
     
-            commandHandle  handler = new commandHandle();
+               //create new instance
+            shoppingCartDB handler = new shoppingCartDB();
+            handler.setPath(path);
             
             System.out.println("Please use only the following commands: "); //initialization print out
+            System.out.println(" login <username>");
             System.out.println("  add <item>");
             System.out.println("  delete <position of item>");
             System.out.println("  list");
+            System.out.println("  save");
+            System.out.println("  users");
             System.out.println("  exit");
             System.out.println("Welcome to your shopping cart");
     
@@ -38,6 +56,12 @@ import java.util.Scanner;
                 
                 if ("login".equals(command)){
                     //handler.handleLogin(command, arguments, scan); //check login commands.
+                    try {
+                        handler.handleLogin(arguments);
+
+                    } catch (IOException e){
+
+                    }
                 }
 
                 if ("add".equals(command)) {        //if input is "add", call handleAdd method to add item from the argument input into cart
@@ -54,9 +78,19 @@ import java.util.Scanner;
                     handler.handleList(command);
                     System.out.println("-- End of list --");
                 }
+
+                else if ("save".equals(command)) {
+                    handler.handleSave();       //call method that save username in an arraylist
+                }
+
+                else if ("users".equals(command)) {     //call method to list all users in the arraylist
+                    handler.handleUsers();
+                    System.out.println("---End of User---");
+                }
     
                 command = scan.next();  //continue asking for user input
                 arguments = scan.nextLine();
+  
             }
            
             scan.close(); //exit program

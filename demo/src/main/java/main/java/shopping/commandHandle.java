@@ -1,6 +1,4 @@
 package main.java.shopping;
-
-import java.beans.Transient;
 import java.util.Scanner;
 
 public class commandHandle {
@@ -104,4 +102,13 @@ public class commandHandle {
             break;
         }
     }
+    /*public void handleLogin(String arguments) {
+        userName = arguments.trim();
+        File file =new File("db/" + userName + ".db");
+    }*/
+
+    public void handleLogin(String arguments) {
+    }
+
+    
 }

@@ -7,7 +7,7 @@ import java.util.List;
 public class shoppingCart {
     
         private List<String> cart = new ArrayList<>(); //declare an ArrayList for the cart
-    
+
         public String listCart() {
             return cart.toString(); //return cart arraylist as a String representation, if not it would return a memory value
         }
